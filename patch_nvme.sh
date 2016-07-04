@@ -19,8 +19,12 @@ if [[ ! -e $binpatch ]]; then
 fi
 plistbuddy=/usr/libexec/PlistBuddy
 
-# device-id of Samsung 950 Pro NVMe
-devid=pci144d,a802
+# list of known PCIe SSDs
+# pci144d,a802 = Samsung 950 Pro NVMe
+# pci1987,5007 = Zotac Sonix PCIe 480gb
+devids=("pci144d,a802" "pci1987,5007")
+# devids only used if use_class_match=0
+use_class_match=1
 
 # assume patching system volume kext
 unpatched=/System/Library/Extensions/IONVMeFamily.kext
@@ -90,7 +94,30 @@ $plistbuddy -c "Delete :IOKitPersonalities:AppleS3ELabController" $plist
 $plistbuddy -c "Delete :IOKitPersonalities:AppleS3XController" $plist
 $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:CFBundleIdentifier com.apple.hack.HackrNVMeFamily" $plist
 $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOClass HackrNVMeController" $plist
-$plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IONameMatch:0 $devid" $plist
+$plistbuddy -c "Delete :IOKitPersonalities:GenericNVMeSSD:IONameMatch" $plist
+if [[ $use_class_match -eq 0 ]]; then
+# use IONameMatch for specific vendor/device-id match
+    # add known PCIe SSD device ids to IONameMatch
+    $plistbuddy -c "Add :IOKitPersonalities:GenericNVMeSSD:IONameMatch array" $plist
+    devidx=0
+    for devid in ${devids[@]}; do
+        $plistbuddy -c "Add :IOKitPersonalities:GenericNVMeSSD:IONameMatch:$devidx string" $plist
+        $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IONameMatch:$devidx $devid" $plist
+        ((devidx++))
+    done
+else
+# use IOPCIClassMatch for NVMe class-code
+    # 0x010802 is class code for NVMe (class-code is 24bit at offset 0x09 in PCI config space)
+    # 0x01 = BCC = mass storage controller
+    # 0x08 = SCC = Non-Volatile Memory controller
+    # 0x02 = PI = NVMe
+    # translates to <02 08 01 00> in class-code in ioreg (intel order)
+    # IOPCIClassMatch seems matches against 32-bit class-code + revision at offset 0x08
+    # NVMeGeneric uses: 0x01080000&0xFFFF0000 (not sure why)
+    # correct IOPCIClassMatch seems to be: 0x01080200&0xFFFFFF00
+    $plistbuddy -c "Add :IOKitPersonalities:GenericNVMeSSD:IOPCIClassMatch string" $plist
+    $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOPCIClassMatch 0x01080200&0xFFFFFF00" $plist
+fi
 
 if [[ $rehabman -eq 1 ]]; then
     # disassemble result
