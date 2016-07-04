@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KernelAndKextPatches</key>
+	<dict>
+		<key>KextsToPatch</key>
+		<array>
+			<dict>
+				<key>Comment</key>
+				<string>NVMe SSD IONameMatch</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>InfoPlistPatch</key>
+				<true/>
+				<key>Find</key>
+				<data>PHN0cmluZz5wY2kxNDRkLGE4MDQ8L3N0cmluZz4=</data>
+				<key>Replace</key>
+				<data>PHN0cmluZz5wY2kxNDRkLGE4MDI8L3N0cmluZz4=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#01</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>SYnGTYX2dGFBwecMSWP/viAAAAA=</data>
+				<key>Replace</key>
+				<data>SYnGTYX2dGFBwecJSWP/viAAAAA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#02-03</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>toyIggAAAIP5DHVYQceGpAAAAAAQAABIi0gISYmOqAA=</data>
+				<key>Replace</key>
+				<data>toyIggAAAIP5CXVYQceGpAAAAAACAABIi0gISYmOqAA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#04</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>SI2G/w8AAEjB6AwPtw+B4f8PAAA=</data>
+				<key>Replace</key>
+				<data>SI2G/w8AAEjB6AkPtw+B4f8PAAA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#05 - 06</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>6EiJxkiB5v8PAABIAdZIgf7/DwAAdzxIjTUCsQ==</data>
+				<key>Replace</key>
+				<data>6EiJxkiB5v8BAABIAdZIgf7/AQAAdzxIjTUCsQ==</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#07</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>SYHG/w8AAEnB7gxJi00ASInLSIE=</data>
+				<key>Replace</key>
+				<data>SYHG/w8AAEnB7glJi00ASInLSIE=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#08 - 09</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>Ag+FuAAAAEyNoQAQAABMieBIJQDw//9JiY8iAQAASYmHKgEAAEG+ABAAAEkp3kiNHXOvAA==</data>
+				<key>Replace</key>
+				<data>Ag+FuAAAAEyNoQACAABMieBIJQDw//9JiY8iAQAASYmHKgEAAEG+AAIAAEkp3kiNHXOvAA==</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#10</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AABJiYcqAQAAugAQAABIKdpMjRU=</data>
+				<key>Replace</key>
+				<data>AABJiYcqAQAAugACAABIKdpMjRU=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#11</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>i6fQAAAASSnUuAAQAABNi20ASQE=</data>
+				<key>Replace</key>
+				<data>i6fQAAAASSnUuAACAABNi20ASQE=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#12 - 13 - 14</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>gEAVBk2J17oAEAAARTHJSIne6AAAAABNifpMi33QSYuHYAEAAEyJbNj4SYHFABAAAEmBxADw//9I/8NBOd4PhTn///8xwEiDxBhbQVxBXUFeQV9dw5BVSInlQVdBVlNIg+wYSYn2SYn/SYsGSInBSIHh/w8AALsAEAAASCnLSYuPyAAAAEgB2UiJTeBJiYciAQAASI0N2qwAAPYBBHQqSIsNHmMAAPcB9////3QbSYnAScHoIInBv4BAFQYx9kUxyUiJ2ugAAAAASYuP0AAAADHASDnLc0RJiwZIAcNJiZ9wAQAASIHB/w8AAEjB6Qxmqf8PD5XAD7Y=</data>
+				<key>Replace</key>
+				<data>gEAVBk2J17oAAgAARTHJSIne6AAAAABNifpMi33QSYuHYAEAAEyJbNj4SYHFAAIAAEmBxADw//9I/8NBOd4PhTn///8xwEiDxBhbQVxBXUFeQV9dw5BVSInlQVdBVlNIg+wYSYn2SYn/SYsGSInBSIHh/w8AALsAEAAASCnLSYuPyAAAAEgB2UiJTeBJiYciAQAASI0N2qwAAPYBBHQqSIsNHmMAAPcB9////3QbSYnAScHoIInBv4BAFQYx9kUxyUiJ2ugAAAAASYuP0AAAADHASDnLc0RJiwZIAcNJiZ9wAQAASIHB/w8AAEjB6Qlmqf8PD5XAD7Y=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Pike R. Alpha Patch#15 - 16 - 17 - 18 - 19</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>RQ+2wEGD+Ad3bUSKVRBED7efsAAAAEHB4xAPtoe2AAAAg+AIweAKRAnYg8gCiYcKAQAAibcOAQAASImXMgEAAIqHtgAAACQCD7bAweAdCciJhzoBAABBweAIQQ+2wUQJwInBgckAEAAARYTSD0TIiY8+AQAAMcBdw5BVSInlU7jCAgDg</data>
+				<key>Replace</key>
+				<data>RQ+2wEGD+Ad3bUQPtlUQRA+3n7AAAABBweMQD7aHtgAAAIPgCMHgCkQJ2IPIAomHCgEAAIm3DgEAAEiJlzIBAACKh7YAAAAkAg+2wMHgHQnIiYc6AQAAQcHgCEEPtsHB4AmQkJCQkJCQRAnARAnQiYc+AQAAMcBdw5BVSInlU7jCAgDg</data>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
