@@ -40,9 +40,17 @@ Usage:
 - you must run the script with the parameter that corresponds to the version of OS X you are running
 - /System/Library/Extensions/IONVMeFamily.kext must be vanilla
 
-For example, if you are running 10.11.5, to create a patched 10.11.5 kext:
+For example, if you are running 10.11.5, and had downloaded/extracted patch-nvme-master from github, to create a patched 10.11.5 kext:
 ```
-cd ~/Downloads/patch_nvme
+cd ~/Downloads/patch-nvme-master
+./patch_nvme.sh 10_11_5
+```
+
+I tend to use git as it was intended:
+```
+mkdir ~/Projects && cd Projects
+git clone https://github.com/RehabMan/patch-nvme.git patch-nvme.git
+cd patch-nvme.git
 ./patch_nvme.sh 10_11_5
 ```
 
