@@ -2,7 +2,7 @@
 
 This script can be used to create patched IONVMeFamily.kext for non-Apple NVMe SSDs, such as the Samsung 950 Pro NVMe.
 
-The scripts implement the patches created by Pike R. Alpha and Mork vom Org at Pike's blog.
+The scripts implement the patches created by Pike R. Alpha and Mork vom Ork at Pike's blog.
 
 See these links for background:
 
@@ -11,6 +11,8 @@ https://pikeralpha.wordpress.com/2016/06/20/stock-apple-nvmefamily-kext-is-a-go/
 https://pikeralpha.wordpress.com/2016/06/27/nvmefamily-kext-bin-patch-data/
 
 https://pikeralpha.wordpress.com/2016/06/29/nvmefamily-kext-bin-patch-data-for-el-capitan/
+
+http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/
 
 
 As I wrote on insanelymac.com:
