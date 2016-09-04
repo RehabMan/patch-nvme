@@ -11,6 +11,8 @@
 #include <string.h>
 #include <sys/types.h>
 
+int quiet = 0;
+
 int tohex(unsigned char hex)
 {
     if (hex >= '0' && hex <= '9')
@@ -53,7 +55,8 @@ void patchMemory(unsigned char* bytes, u_int64_t count, unsigned char* find, uns
     {
         if (0 == memcmp(ptr, find, fr_count))
         {
-            printf("\tpatching offset: %zu\n", (size_t)(ptr - bytes));
+            if (!quiet)
+                printf("\tpatching offset: %zu\n", (size_t)(ptr - bytes));
             memcpy(ptr, replace, fr_count);
             ptr += fr_count;
             count -= fr_count;
@@ -65,9 +68,11 @@ void patchMemory(unsigned char* bytes, u_int64_t count, unsigned char* find, uns
 
 int main(int argc, char * argv[])
 {
-    if (argc != 4)
+    if (argc < 4 || argc > 5)
     {
-        printf ("Usage: %s <hex find> <hex replace> <file>\nExample: %s CAFEBABE CAFE00AB java.exe\nResult: CAFEBABE -> CAFE00AB\n", argv[0], argv[0]);
+        printf("Usage: %s [options] <hex find> <hex replace> <file>\nExample: %s CAFEBABE CAFE00AB java.exe\nResult: CAFEBABE -> CAFE00AB\n", argv[0], argv[0]);
+        printf("options:\n");
+        printf("\t-q\tquiet; do not print non-errors\n");
         exit(1);
     }
     if (access(argv[argc-1], F_OK) != 0)
@@ -76,14 +81,37 @@ int main(int argc, char * argv[])
         exit(2);
     }
 
-    char* findArg = argv[1];
-    char* replArg = argv[2];
-    char* fileArg = argv[3];
+    int arg = 1;
+    for (; arg < argc; arg++)
+    {
+        if (argv[arg][0] != '-')
+            break;
+
+        switch (argv[arg][1])
+        {
+            case 'q':
+                quiet = 1;
+                break;
+            case 'n':
+                quiet = 0;
+                break;
+            default:
+                printf("invalid option: \"%s\"\n", argv[arg]);
+                break;
+        }
+    }
+
+    char* findArg = argv[arg+0];
+    char* replArg = argv[arg+1];
+    char* fileArg = argv[arg+2];
 
     stripSpaces(findArg);
     stripSpaces(replArg);
-    printf("\tfind: '%s'\n", findArg);
-    printf("\trepl: '%s'\n", replArg);
+    if (!quiet)
+    {
+        printf("\tfind: '%s'\n", findArg);
+        printf("\trepl: '%s'\n", replArg);
+    }
     if (strlen(findArg) != strlen(replArg))
     {
         printf("Find and Replace sizes do not match\n");

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>VanillaMD5</key>
-	<string>c236c91f4f20c1f2fb9f828f3ffc0a6c</string>
+	<string>a768b44c61fd5dbe3695fa2a51cdc7c3</string>
 	<key>PatchedMD5</key>
-	<string>040b01cd4bfb18b8df793b96998810b7</string>
+	<string>7f6aade692f24525340e959adab62135</string>
 	<key>KernelAndKextPatches</key>
 	<dict>
 		<key>KextsToPatch</key>

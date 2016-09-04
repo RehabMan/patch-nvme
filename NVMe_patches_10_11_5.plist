@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>VanillaMD5</key>
+	<string>80b47eaa978c8e7b3cbfebf7a2cb58b5</string>
+	<key>PatchedMD5</key>
+	<string>040b01cd4bfb18b8df793b96998810b7</string>
 	<key>KernelAndKextPatches</key>
 	<dict>
 		<key>KextsToPatch</key>

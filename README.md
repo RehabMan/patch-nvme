@@ -30,6 +30,8 @@ Contents:
 - patch_nvme.sh: main patching script
 - NVMe_patches_10_11_5.plist: KextsToPatch content as provided by Mork vom Ork, post #33 this thread.
 - NVMe_patches_10_11_6_beta4.plist: KextsToPatch content as provided by Mork vom Ork, post #16 this thread.
+- NVMe_patches_10_11_6.plist: KextsToPatch content for 10.11.6 final
+- NVMe_patches_10_11_6_sec2016-001: KextsToPatch content for 10.11.6 with security update 2016-001 (only md5 changed)
 - NVMe_patches_10_12_dp1.plist: KextsToPatch content as provided by Mork vom Ork, post #8 this thread.
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary

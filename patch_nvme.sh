@@ -3,6 +3,7 @@
 #set -x
 
 rehabman=0
+quiet=1
 
 if [[ ! -e NVMe_patches_$1.plist ]]; then
     echo "Error: NVMe_patches_$1.plist does not exist!"
@@ -31,11 +32,10 @@ unpatched=/System/Library/Extensions/IONVMeFamily.kext
 config=NVMe_patches_$1.plist
 patched=HackrNVMeFamily-$1.kext
 disasm=HackrNVMeFamily-$1.s
+orgdisasm=NVMeFamily-$1.s
 
 if [[ $rehabman -eq 1 ]]; then
-    if [[ $1 == "10_12_dp1" ]]; then
-        unpatched=/Volumes/10.12.dp/System/Library/Extensions/IONVMeFamily.kext
-    fi
+    unpatched=./unpatched/IONVMeFamily_$1.kext
 fi
 
 echo "Creating patched $patched"
@@ -44,6 +44,22 @@ rm -Rf $patched
 cp -RX $unpatched $patched
 bin=$patched/Contents/MacOS/HackrNVMeFamily
 mv $patched/Contents/MacOS/IONVMeFamily $bin
+
+expected_md5=`$plistbuddy -c "Print :VanillaMD5" $config 2>&1`
+if [[ "$expected_md5" == *"Does Not Exist"* ]]; then
+    echo "WARNING: patch file \"$config\" has no VanillaMD5 entry, not comparing md5 values"
+else
+    vanilla_md5=`md5 -q $bin`
+    if [[ "$vanilla_md5" == "$expected_md5" ]]; then
+        echo "Vanilla MD5 matches expected MD5 entry ($expected_md5)"
+    else
+        echo "WARNING: Vanilla MD5 ($vanilla_md5) does not match expected MD5 ($expected_md5)"
+    fi
+fi
+
+if [[ $quiet -eq 1 ]]; then
+    binpatch_flags=-q
+fi
 
 # patch binary using IONVMeFamily patches in config.plist/KernelAndKextPatches/KextsToPatch
 for ((patch=0; 1; patch++)); do
@@ -59,39 +75,47 @@ for ((patch=0; 1; patch++)); do
     infoplist=`$plistbuddy -c "Print :KernelAndKextPatches:KextsToPatch:$patch:InfoPlistPatch" $config 2>&1`
     if [[ "$infoplist" == "true" ]]; then continue; fi
     # otherwise, it is enabled binpatch
-    printf "Comment: %s\n" "$comment"
+    if [[ $quiet -eq 0 ]]; then
+        printf "Comment: %s\n" "$comment"
+    fi
     find=`$plistbuddy -x -c "Print :KernelAndKextPatches:KextsToPatch:$patch:Find" $config 2>&1`
     repl=`$plistbuddy -x -c "Print :KernelAndKextPatches:KextsToPatch:$patch:Replace" $config`
     find=$([[ "$find" =~ \<data\>(.*)\<\/data\> ]] && echo ${BASH_REMATCH[1]})
     repl=$([[ "$repl" =~ \<data\>(.*)\<\/data\> ]] && echo ${BASH_REMATCH[1]})
     find=`echo $find | base64 --decode | xxd -p | tr '\n' ' '`
     repl=`echo $repl | base64 --decode | xxd -p | tr '\n' ' '`
-    $binpatch "$find" "$repl" $bin
+    $binpatch $binpatch_flags "$find" "$repl" $bin
 done
 
 # show md5 with just normal patches from Pike
-echo md5 $bin: `md5 -q $bin`
-if [[ $rehabman -eq 1 ]]; then
+if [[ $quiet -eq 0 || $rehabman -ge 2 ]]; then
+    echo md5 $bin: `md5 -q $bin`
+fi
+if [[ $rehabman -ge 2 ]]; then
     echo md5 frompike/IONVMeFamily_10115_Step_2: `md5 -q frompike/IONVMeFamily_10115_Step_2`
     echo md5 frompike/IONVMeFamily_WORKS_Step_9_Y: `md5 -q frompike/IONVMeFamily_WORKS_Step_9_Y`
 fi
 
 # rename internal class
-echo "Rename class from AppleNVMeController to HackrNVMeController"
-$binpatch 004170706c654e564d65436f6e74726f6c6c657200 004861636b724e564d65436f6e74726f6c6c657200 $bin
+if [[ $quiet -eq 0 ]]; then
+    echo "Rename class from AppleNVMeController to HackrNVMeController"
+fi
+$binpatch $binpatch_flags 004170706c654e564d65436f6e74726f6c6c657200 004861636b724e564d65436f6e74726f6c6c657200 $bin
 
 # show final md5 with class rename
-echo md5 $bin: `md5 -q $bin`
+if [[ $quiet -eq 0 || $rehabman -ge 2 ]]; then
+    echo "md5 $bin (after class rename): `md5 -q $bin`"
+fi
 
 # fix Info.plist for Samsung 950 Pro NVMe, and new class/bundle names
 plist=$patched/Contents/Info.plist
 $plistbuddy -c "Set :CFBundleIdentifier com.apple.hack.HackrNVMeFamily" $plist
 $plistbuddy -c "Set :CFBundleName HackrNVMeFamily" $plist
 $plistbuddy -c "Set :CFBundleExecutable HackrNVMeFamily" $plist
-$plistbuddy -c "Delete :IOKitPersonalities:AppleNVMeSSD" $plist
-$plistbuddy -c "Delete :IOKitPersonalities:AppleS1XController" $plist
-$plistbuddy -c "Delete :IOKitPersonalities:AppleS3ELabController" $plist
-$plistbuddy -c "Delete :IOKitPersonalities:AppleS3XController" $plist
+$plistbuddy -c "Delete :IOKitPersonalities:AppleNVMeSSD" $plist >/dev/null 2>&1
+$plistbuddy -c "Delete :IOKitPersonalities:AppleS1XController" $plist >/dev/null 2>&1
+$plistbuddy -c "Delete :IOKitPersonalities:AppleS3ELabController" $plist >/dev/null 2>&1
+$plistbuddy -c "Delete :IOKitPersonalities:AppleS3XController" $plist >/dev/null 2>&1
 $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:CFBundleIdentifier com.apple.hack.HackrNVMeFamily" $plist
 $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOClass HackrNVMeController" $plist
 $plistbuddy -c "Delete :IOKitPersonalities:GenericNVMeSSD:IONameMatch" $plist
@@ -119,8 +143,22 @@ else
     $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOPCIClassMatch 0x01080200&0xFFFFFF00" $plist
 fi
 
+expected_md5=`$plistbuddy -c "Print :PatchedMD5" $config 2>&1`
+if [[ "$expected_md5" == *"Does Not Exist"* ]]; then
+    echo "WARNING: patch file \"$config\" has no PatchedMD5 entry, not comparing md5 values"
+else
+    patched_md5=`md5 -q $bin`
+    if [[ "$patched_md5" == "$expected_md5" ]]; then
+        echo "Patched MD5 matches expected MD5 entry ($expected_md5)"
+    else
+        echo "WARNING: Patched MD5 ($patched_md5) does not match expected MD5 ($expected_md5)"
+    fi
+fi
+
 if [[ $rehabman -eq 1 ]]; then
     # disassemble result
     otool -tVj $bin >$disasm
+    otool -tVj $unpatched/Contents/MacOS/IONVMeFamily >$orgdisasm
+    diff $orgdisasm $disasm >$disasm.diff
     echo disassembly created: $disasm
 fi
