@@ -27,6 +27,9 @@ devids=("pci144d,a802" "pci1987,5007")
 # devids only used if use_class_match=0
 use_class_match=1
 
+# as to whether the patched kext uses renamed classes/bundle
+rename_class=1
+
 # assume patching system volume kext
 unpatched=/System/Library/Extensions/IONVMeFamily.kext
 config=NVMe_patches_$1.plist
@@ -42,8 +45,12 @@ echo "Creating patched $patched"
 
 rm -Rf $patched
 cp -RX $unpatched $patched
-bin=$patched/Contents/MacOS/HackrNVMeFamily
-mv $patched/Contents/MacOS/IONVMeFamily $bin
+if [[ rename_class -eq 1 ]]; then
+    bin=$patched/Contents/MacOS/HackrNVMeFamily
+    mv $patched/Contents/MacOS/IONVMeFamily $bin
+else
+    bin=$patched/Contents/MacOS/IONVMeFamily
+fi
 
 expected_md5=`$plistbuddy -c "Print :VanillaMD5" $config 2>&1`
 if [[ "$expected_md5" == *"Does Not Exist"* ]]; then
@@ -96,11 +103,29 @@ if [[ $rehabman -ge 2 ]]; then
     echo md5 frompike/IONVMeFamily_WORKS_Step_9_Y: `md5 -q frompike/IONVMeFamily_WORKS_Step_9_Y`
 fi
 
-# rename internal class
-if [[ $quiet -eq 0 ]]; then
-    echo "Rename class from AppleNVMeController to HackrNVMeController"
+if [[ rename_class -eq 1 ]]; then
+    # rename classes
+    if [[ $quiet -eq 0 ]]; then
+        echo "Rename class from AppleNVMeController to HackrNVMeController"
+    fi
+    $binpatch $binpatch_flags 004170706c654e564d65436f6e74726f6c6c657200 004861636b724e564d65436f6e74726f6c6c657200 $bin
+    if [[ 0 -eq 1 ]]; then
+        # rename internal classes
+        # these renames are disabled as instead we rename the classes in the native kext
+        $binpatch $binpatch_flags 00494f4e564d65436f6e74726f6c6c657200 0049584e564d65436f6e74726f6c6c657200 $bin
+        $binpatch $binpatch_flags 00494f4e564d65426c6f636b53746f7261676544657669636500 0049584e564d65426c6f636b53746f7261676544657669636500 $bin
+        $binpatch $binpatch_flags 004170706c654e564d65576f726b4c6f6f7000 004861636b724e564d65576f726b4c6f6f7000 $bin
+        $binpatch $binpatch_flags 004170706c65533158436f6e74726f6c6c657200 004861636b72533158436f6e74726f6c6c657200 $bin
+        $binpatch $binpatch_flags 00494f4e564d65436f6e74726f6c6c6572506f6c6c65644164617074657200 0049584e564d65436f6e74726f6c6c6572506f6c6c65644164617074657200 $bin
+        $binpatch $binpatch_flags 004170706c654e564d6542756666657200 004861636b724e564d6542756666657200 $bin
+        $binpatch $binpatch_flags 004170706c654e564d655265717565737400 004861636b724e564d655265717565737400 $bin
+        $binpatch $binpatch_flags 004170706c655333454c6162436f6e74726f6c6c657200 004861636b725333454c6162436f6e74726f6c6c657200 $bin
+        $binpatch $binpatch_flags 004170706c654e564d655265717565737454696d657200 004861636b724e564d655265717565737454696d657200 $bin
+        $binpatch $binpatch_flags 004170706c654e564d6552657175657374506f6f6c00 004861636b724e564d6552657175657374506f6f6c00 $bin
+        $binpatch $binpatch_flags 004170706c654e564d65534d41525455736572436c69656e7400 004861636b724e564d65534d41525455736572436c69656e7400 $bin
+        $binpatch $binpatch_flags 004170706c65533358436f6e74726f6c6c657200 004861636b72533358436f6e74726f6c6c657200 $bin
+    fi
 fi
-$binpatch $binpatch_flags 004170706c654e564d65436f6e74726f6c6c657200 004861636b724e564d65436f6e74726f6c6c657200 $bin
 
 # show final md5 with class rename
 if [[ $quiet -eq 0 || $rehabman -ge 2 ]]; then
@@ -109,16 +134,39 @@ fi
 
 # fix Info.plist for Samsung 950 Pro NVMe, and new class/bundle names
 plist=$patched/Contents/Info.plist
-$plistbuddy -c "Set :CFBundleIdentifier com.apple.hack.HackrNVMeFamily" $plist
-$plistbuddy -c "Set :CFBundleName HackrNVMeFamily" $plist
-$plistbuddy -c "Set :CFBundleExecutable HackrNVMeFamily" $plist
+
+# change version #
+pattern='s/(\d*\.\d*(\.\d*)?)/9\1/'
+if [[ 0 -eq 1 ]]; then
+replace=`$plistbuddy -c "Print :NSHumanReadableCopyright" $plist | perl -p -e $pattern`
+$plistbuddy -c "Set :NSHumanReadableCopyright '$replace'" $plist
+fi
+replace=`$plistbuddy -c "Print :CFBundleGetInfoString" $plist | perl -p -e $pattern`
+$plistbuddy -c "Set :CFBundleGetInfoString '$replace'" $plist
+replace=`$plistbuddy -c "Print :CFBundleVersion" $plist | perl -p -e $pattern`
+$plistbuddy -c "Set :CFBundleVersion '$replace'" $plist
+replace=`$plistbuddy -c "Print :CFBundleShortVersionString" $plist | perl -p -e $pattern`
+$plistbuddy -c "Set :CFBundleShortVersionString '$replace'" $plist
+
+# set high IOProbeScore
+/usr/libexec/PlistBuddy -c "Add ':IOKitPersonalities:GenericNVMeSSD:IOProbeScore' integer" $plist
+/usr/libexec/PlistBuddy -c "Set ':IOKitPersonalities:GenericNVMeSSD:IOProbeScore' 8000" $plist
+
+if [[ rename_class -eq 1 ]]; then
+    $plistbuddy -c "Set :CFBundleIdentifier com.apple.hack.HackrNVMeFamily" $plist
+    $plistbuddy -c "Set :CFBundleName HackrNVMeFamily" $plist
+    $plistbuddy -c "Set :CFBundleExecutable HackrNVMeFamily" $plist
+fi
 $plistbuddy -c "Delete :IOKitPersonalities:AppleNVMeSSD" $plist >/dev/null 2>&1
 $plistbuddy -c "Delete :IOKitPersonalities:AppleS1XController" $plist >/dev/null 2>&1
 $plistbuddy -c "Delete :IOKitPersonalities:AppleS3ELabController" $plist >/dev/null 2>&1
 $plistbuddy -c "Delete :IOKitPersonalities:AppleS3XController" $plist >/dev/null 2>&1
-$plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:CFBundleIdentifier com.apple.hack.HackrNVMeFamily" $plist
-$plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOClass HackrNVMeController" $plist
-$plistbuddy -c "Delete :IOKitPersonalities:GenericNVMeSSD:IONameMatch" $plist
+if [[ rename_class -eq 1 ]]; then
+    $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:CFBundleIdentifier com.apple.hack.HackrNVMeFamily" $plist
+    $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOClass HackrNVMeController" $plist
+fi
+$plistbuddy -c "Delete :IOKitPersonalities:GenericNVMeSSD:IONameMatch" $plist >/dev/null 2>&1
+$plistbuddy -c "Delete :IOKitPersonalities:GenericNVMeSSD:IOPCIClassMatch" $plist >/dev/null 2>&1
 if [[ $use_class_match -eq 0 ]]; then
 # use IONameMatch for specific vendor/device-id match
     # add known PCIe SSD device ids to IONameMatch

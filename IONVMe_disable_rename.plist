@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KernelAndKextPatches</key>
+	<dict>
+		<key>KextsToPatch</key>
+		<array>
+			<dict>
+				<key>Comment</key>
+				<string>force failure for IONVMeController::start</string>
+				<key>MatchOS</key>
+				<string>10.12.0</string>
+				<key>Disabled</key>
+				<false/>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>SIX2D4TxAAAA</data>
+				<key>Replace</key>
+				<data>SIX26fIAAACQ</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleNVMeController to ElppaNVMeController</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlTlZNZUNvbnRyb2xsZXIA</data>
+				<key>Replace</key>
+				<data>AGVscHBBTlZNZUNvbnRyb2xsZXIA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename IONVMeController to XXNVMeController</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AElPTlZNZUNvbnRyb2xsZXIA</data>
+				<key>Replace</key>
+				<data>AFhYT05WTWVDb250cm9sbGVyAA==</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename IONVMeBlockStorageDevice</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AElPTlZNZUJsb2NrU3RvcmFnZURldmljZQA=</data>
+				<key>Replace</key>
+				<data>AFhYTlZNZUJsb2NrU3RvcmFnZURldmljZQA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleNVMeWorkLoop</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlTlZNZVdvcmtMb29wAA==</data>
+				<key>Replace</key>
+				<data>AGVscHBBTlZNZVdvcmtMb29wAA==</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleS1XController</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlUzFYQ29udHJvbGxlcgA=</data>
+				<key>Replace</key>
+				<data>AGVscHBBUzFYQ29udHJvbGxlcgA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename IONVMeControllerPolledAdapter</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AElPTlZNZUNvbnRyb2xsZXJQb2xsZWRBZGFwdGVyAA==</data>
+				<key>Replace</key>
+				<data>AFhYTlZNZUNvbnRyb2xsZXJQb2xsZWRBZGFwdGVyAA==</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleNVMeBuffer</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlTlZNZUJ1ZmZlcgA=</data>
+				<key>Replace</key>
+				<data>AGVscHBBTlZNZUJ1ZmZlcgA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleNVMeRequest</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlTlZNZVJlcXVlc3QA</data>
+				<key>Replace</key>
+				<data>AGVscHBBTlZNZVJlcXVlc3QA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleS3ELabController</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlUzNFTGFiQ29udHJvbGxlcgA=</data>
+				<key>Replace</key>
+				<data>AGVscHBBUzNFTGFiQ29udHJvbGxlcgA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleNVMeRequestTimer</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlTlZNZVJlcXVlc3RUaW1lcgA=</data>
+				<key>Replace</key>
+				<data>AGVscHBBTlZNZVJlcXVlc3RUaW1lcgA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleNVMeRequestPool</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlTlZNZVJlcXVlc3RQb29sAA==</data>
+				<key>Replace</key>
+				<data>AGVscHBBTlZNZVJlcXVlc3RQb29sAA==</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleNVMeSMARTUserClient</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlTlZNZVNNQVJUVXNlckNsaWVudAA=</data>
+				<key>Replace</key>
+				<data>AGVscHBBTlZNZVNNQVJUVXNlckNsaWVudAA=</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>rename AppleS3XController</string>
+				<key>Name</key>
+				<string>IONVMeFamily</string>
+				<key>Find</key>
+				<data>AEFwcGxlUzNYQ29udHJvbGxlcgA=</data>
+				<key>Replace</key>
+				<data>AGVscHBBUzNYQ29udHJvbGxlcgA=</data>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
