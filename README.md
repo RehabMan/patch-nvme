@@ -22,17 +22,29 @@ As I wrote on insanelymac.com:
 The script here implements the strategy proposed above.
 
 
+### 10.12 Sierra Notes
+
+With 10.12 there are a couple of procedural changes:
+
+- If you are trying to use HackrNVMeFamily for the 10.12 installer, forget about it.  Use the correct patches in config.plist KextsToPatch.
+
+- Once you install, you can create the HackrNVMeFamily and use it (or use one you already created), but you must remove IONVMeFamily.kext from /System/Library/Extensions
+
+I will update here when/if there is a better solution.
+
+
 ### Usage:
 
 Download the ZIP (and extract it) or make a clone of the git repository.
 
 Contents:
 - patch_nvme.sh: main patching script
-- NVMe_patches_10_11_5.plist: KextsToPatch content as provided by Mork vom Ork, post #33 this thread.
-- NVMe_patches_10_11_6_beta4.plist: KextsToPatch content as provided by Mork vom Ork, post #16 this thread.
+- NVMe_patches_10_11_5.plist: KextsToPatch content as provided by Mork vom Ork, post #33 IM thread.
+- NVMe_patches_10_11_6_beta4.plist: KextsToPatch content as provided by Mork vom Ork, post #16 IM thread.
 - NVMe_patches_10_11_6.plist: KextsToPatch content for 10.11.6 final
 - NVMe_patches_10_11_6_sec2016-001: KextsToPatch content for 10.11.6 with security update 2016-001 (only md5 changed)
-- NVMe_patches_10_12_dp1.plist: KextsToPatch content as provided by Mork vom Ork, post #8 this thread.
+- NVMe_patches_10_12_dp1.plist: KextsToPatch content as provided by Mork vom Ork, post #8 IM thread.
+- NVMe_patches_10_12_0.plist: KextsToPatch content for 10.12.0 (Sierra first release)
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary
 
