@@ -44,7 +44,8 @@ Contents:
 - NVMe_patches_10_11_6.plist: KextsToPatch content for 10.11.6 final
 - NVMe_patches_10_11_6_sec2016-001: KextsToPatch content for 10.11.6 with security update 2016-001 (only md5 changed)
 - NVMe_patches_10_12_dp1.plist: KextsToPatch content as provided by Mork vom Ork, post #8 IM thread.
-- NVMe_patches_10_12_0.plist: KextsToPatch content for 10.12.0 (Sierra first release)
+- NVMe_patches_10_12_0.plist: KextsToPatch content for 10.12.0
+- NVMe_patches_10_12_1.plist: KextsToPatch content for 10.12.1
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary
 
