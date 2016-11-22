@@ -32,6 +32,15 @@ With 10.12 there are a couple of procedural changes:
 
 I will update here when/if there is a better solution.
 
+### 10.12 UPDATE
+
+By tricking the system, we can prevent IONVMeFamily.kext from loading.  It involves injecting a fake "class-code" such that the IOPCIClassMatch in IONVMeFamily's Info.plist no longer matches.
+
+With this technique, HackrNVMeFamily and IONVMeFamily can co-exist.  Applies to installation scenarios and to post-install.
+
+See here for further details:
+http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-29#entry2322636
+
 
 ### Usage:
 
