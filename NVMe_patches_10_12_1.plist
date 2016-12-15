@@ -12,20 +12,6 @@
 		<array>
 			<dict>
 				<key>Comment</key>
-				<string>IONVMeFamily IONameMatch</string>
-				<key>Disabled</key>
-				<false/>
-				<key>Name</key>
-				<string>IONVMeFamily</string>
-				<key>InfoPlistPatch</key>
-				<true/>
-				<key>Find</key>
-				<data>PHN0cmluZz5wY2kxNDRkLGE4MDQ8L3N0cmluZz4=</data>
-				<key>Replace</key>
-				<data>PHN0cmluZz5wY2kxNDRkLGE4MDI8L3N0cmluZz4=</data>
-			</dict>
-			<dict>
-				<key>Comment</key>
 				<string>IONVMeFamily Pike R. Alpha Patch#1</string>
 				<key>Disabled</key>
 				<false/>
