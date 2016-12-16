@@ -41,6 +41,13 @@ With this technique, HackrNVMeFamily and IONVMeFamily can co-exist.  Applies to 
 See here for further details:
 http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-29#entry2322636
 
+Note: The --spoof option to patch_nvme.sh can be used to automatically generate the kext with the modified IOPCIClassMatch.
+
+Such as:
+```
+./patch_nvme.sh --spoof 10_12_2
+```
+
 
 ### Usage:
 

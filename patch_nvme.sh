@@ -4,6 +4,12 @@
 
 rehabman=0
 quiet=1
+spoof_class_code=0
+
+if [[ $1 == --spoof ]]; then
+    spoof_class_code=1
+    shift
+fi
 
 if [[ ! -e NVMe_patches_$1.plist ]]; then
     echo "Error: NVMe_patches_$1.plist does not exist!"
@@ -188,7 +194,11 @@ else
     # NVMeGeneric uses: 0x01080000&0xFFFF0000 (not sure why)
     # correct IOPCIClassMatch seems to be: 0x01080200&0xFFFFFF00
     $plistbuddy -c "Add :IOKitPersonalities:GenericNVMeSSD:IOPCIClassMatch string" $plist
-    $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOPCIClassMatch 0x01080200&0xFFFFFF00" $plist
+    if [[ $spoof_class_code -eq 0 ]]; then
+        $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOPCIClassMatch 0x01080200&0xFFFFFF00" $plist
+    else
+        $plistbuddy -c "Set :IOKitPersonalities:GenericNVMeSSD:IOPCIClassMatch 0x0108ff00&0xFFFFFF00" $plist
+    fi
 fi
 
 expected_md5=`$plistbuddy -c "Print :PatchedMD5" $config 2>&1`
