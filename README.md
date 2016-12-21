@@ -41,6 +41,9 @@ With this technique, HackrNVMeFamily and IONVMeFamily can co-exist.  Applies to 
 See here for further details:
 http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-29#entry2322636
 
+Or here:
+https://www.tonymacx86.com/threads/guide-hackrnvmefamily-co-existence-with-ionvmefamily-using-class-code-spoof.210316/
+
 Note: The --spoof option to patch_nvme.sh can be used to automatically generate the kext with the modified IOPCIClassMatch.
 
 Such as:
@@ -68,6 +71,7 @@ Contents:
 - NVMe_patches_10_12_2.plist: KextsToPatch content for 10.12.2 (16C67)
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary
+- config_patches.plist: contains _DSM to XDSM ACPI patch
 
 Usage:
 - extract patch_nvme.zip archive
