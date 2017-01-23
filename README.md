@@ -70,6 +70,7 @@ Contents:
 - NVMe_patches_10_12_1_16B2555.plist: KextsToPatch content for 10.12.1 build 16B2555, which was followed up very quicky with an update.  The patches are the same as NVMe_patches_10_12_1.plist, but the MD5 sums are different.
 - NVMe_patches_10_12_1.plist: KextsToPatch content for 10.12.1
 - NVMe_patches_10_12_2.plist: KextsToPatch content for 10.12.2 (16C67)
+- NVMe_patches_10_12_3.plist: KextsToPatch content for 10.12.3 (16D32)
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary
 - config_patches.plist: contains _DSM to XDSM ACPI patch
