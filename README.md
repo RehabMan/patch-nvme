@@ -22,6 +22,11 @@ As I wrote on insanelymac.com:
 The script here implements the strategy proposed above.
 
 
+### Special patches for LiteOn/Plextor/Hynix NVMe
+
+Read here: http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-42#entry2356251
+
+
 ### 10.12 Sierra Notes
 
 With 10.12 there are a couple of procedural changes:
