@@ -27,6 +27,13 @@ The script here implements the strategy proposed above.
 Read here: http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-42#entry2356251
 
 
+### Special note regarding 4k block size capable drives
+
+It may be that your drive is capable of being driven with a 4k block size instead of 512 bytes.  If the drive is in 4k mode, you may be able to use the IONVMeFamily.kext without patches.
+
+Read here: http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-50#entry2377304
+
+
 ### 10.12 Sierra Notes
 
 With 10.12 there are a couple of procedural changes:
