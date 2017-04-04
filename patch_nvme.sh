@@ -5,11 +5,20 @@
 rehabman=0
 quiet=1
 spoof_class_code=0
+# assume patching system volume kext
+unpatched=/System/Library/Extensions/IONVMeFamily.kext
 
-if [[ $1 == --spoof ]]; then
-    spoof_class_code=1
-    shift
-fi
+while [[ $# -gt 0 ]]; do
+    if [[ "$1" == --spoof ]]; then
+        spoof_class_code=1
+        shift
+    elif [[ "$1" == --unpatched ]]; then
+        unpatched="$2"
+        shift 2
+    else
+        break
+    fi
+done
 
 if [[ ! -e NVMe_patches_$1.plist ]]; then
     echo "Error: NVMe_patches_$1.plist does not exist!"
@@ -37,8 +46,7 @@ use_class_match=1
 # as to whether the patched kext uses renamed classes/bundle
 rename_class=1
 
-# assume patching system volume kext
-unpatched=/System/Library/Extensions/IONVMeFamily.kext
+
 config=NVMe_patches_$1.plist
 patched=HackrNVMeFamily-$1.kext
 disasm=HackrNVMeFamily-$1.s
