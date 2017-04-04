@@ -63,6 +63,11 @@ Such as:
 ./patch_nvme.sh --spoof 10_12_2
 ```
 
+And the --location option can be used to specify an alternate location for the IONVMeFamily.kext.  For example, if you wanted to patch from a different version, or from an IONVMeFamily.kext that is stored somewhere else:
+```
+./patch_nvme.sh --location /Volumes/10.11.6/System/Library/Extensions/IONVMeFamily.kext 10_11_6_sec2017-001
+```
+
 
 ### Usage:
 
@@ -83,6 +88,7 @@ Contents:
 - NVMe_patches_10_12_1.plist: KextsToPatch content for 10.12.1
 - NVMe_patches_10_12_2.plist: KextsToPatch content for 10.12.2 (16C67)
 - NVMe_patches_10_12_3.plist: KextsToPatch content for 10.12.3 (16D32)
+- NVMe_patches_10_12_4.plist: KextsToPatch content for 10.12.4
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary
 - config_patches.plist: contains _DSM to XDSM ACPI patch
