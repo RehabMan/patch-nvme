@@ -117,6 +117,16 @@ cd patch-nvme.git
 
 The result is HackrNVMeFamily-10_11_5.kext. You can install it to /S/L/E, /L/E, or use Clover kext injection with it. It will not interfere with IONVMeFamily.kext and system updates will not change it.
 
+You can also leave the patch name unspecified, and the script will determine the correct patch based on the vanilla IONVMeFamily:
+```
+./patch_nvme.sh
+```
+
+Or with --spoof option:
+```
+./patch_nvme.sh --spoof
+```
+
 You should also make sure you have no patches for IONVMeFamily.kext in your config.plist before trying to use the patched kext.
 
 Note: The current script uses class-code matching with IOPCIClassMatch to match against any NVMe compliant SSD.
@@ -133,9 +143,40 @@ Use "Issues" at github for reporting bugs.
 
 ### Change Log:
 
+2017-04-19
+
+- added automatic detection of correct patch file if patch name is unspecified
+
+- added additional error checking (will not generate a patched kext when md5 sums do not match, unless --override is specified)
+
+- added --override (advanced use only)
+
+
+2017-04-03
+
+- added --unpatched option (joevt)
+
+
+2017-03-29
+
+- added support for 10.11.6 security update 2017-001
+
+
+2017-03-28
+
+- added support for 10.12.4
+
+
+2017-01-23
+
+- added support for 10.12.3
+
+
+
 2016-07-04
 
 - changed to using IOPCIClassMatch instead of IONameMatch
+
 
 2016-07-03
 
