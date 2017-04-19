@@ -5,6 +5,7 @@
 rehabman=0
 quiet=1
 spoof_class_code=0
+override_md5=0
 # assume patching system volume kext
 unpatched=/System/Library/Extensions/IONVMeFamily.kext
 
@@ -15,13 +16,37 @@ while [[ $# -gt 0 ]]; do
     elif [[ "$1" == --unpatched ]]; then
         unpatched="$2"
         shift 2
+    elif [[ "$1" == --override ]]; then
+        override_md5=1
+        shift
     else
         break
     fi
 done
 
-if [[ ! -e NVMe_patches_$1.plist ]]; then
-    echo "Error: NVMe_patches_$1.plist does not exist!"
+plistbuddy=/usr/libexec/PlistBuddy
+patch_name=$1
+
+if [[ "$patch_name" == "" ]]; then
+    vanilla_md5=`md5 -q $unpatched/Contents/MacOS/IONVMeFamily`
+    for check in NVMe_patches_*.plist; do
+        expected_md5=`$plistbuddy -c "Print :VanillaMD5" $check 2>&1`
+        if [[ "$expected_md5" == "$vanilla_md5" ]]; then
+            patch_name=${check#NVMe_patches_}
+            patch_name=${patch_name%.plist}
+            echo "Determined patch automatically from vanilla IONVMeFamily: $patch_name"
+            break
+        fi
+    done
+fi
+
+if [[ "$patch_name" == "" ]]; then
+    echo "ERROR: no patch name specified, and unable to determine a suitable patch automatically"
+    exit
+fi
+
+if [[ ! -e NVMe_patches_$patch_name.plist ]]; then
+    echo "ERROR: $NVMe_patches_$patch_name.plist does not exist!"
     exit
 fi
 
@@ -30,10 +55,9 @@ if [[ ! -e $binpatch ]]; then
     cc -o binpatch binpatch.c
 fi
 if [[ ! -e $binpatch ]]; then
-    echo "Error: $binpatch does not exist... cannot binary patch!"
+    echo "ERROR: $binpatch does not exist... cannot binary patch!"
     exit
 fi
-plistbuddy=/usr/libexec/PlistBuddy
 
 # list of known PCIe SSDs
 # pci144d,a802 = Samsung 950 Pro NVMe
@@ -47,13 +71,13 @@ use_class_match=1
 rename_class=1
 
 
-config=NVMe_patches_$1.plist
-patched=HackrNVMeFamily-$1.kext
-disasm=HackrNVMeFamily-$1.s
-orgdisasm=NVMeFamily-$1.s
+config=NVMe_patches_$patch_name.plist
+patched=HackrNVMeFamily-$patch_name.kext
+disasm=HackrNVMeFamily-$patch_name.s
+orgdisasm=NVMeFamily-$patch_name.s
 
 if [[ $rehabman -eq 1 ]]; then
-    unpatched=./unpatched/IONVMeFamily_$1.kext
+    unpatched=./unpatched/IONVMeFamily_$patch_name.kext
 fi
 
 echo "Creating patched $patched"
@@ -76,6 +100,10 @@ else
         echo "Vanilla MD5 matches expected MD5 entry ($expected_md5)"
     else
         echo "WARNING: Vanilla MD5 ($vanilla_md5) does not match expected MD5 ($expected_md5)"
+        if [[ $override_md5 -eq 0 ]]; then
+            echo "ERROR: Vanilla MD5 does not match and --override not specified.  No kext generated!"
+            exit
+        fi
     fi
 fi
 
@@ -219,6 +247,11 @@ else
         echo "Patched MD5 matches expected MD5 entry ($expected_md5)"
     else
         echo "WARNING: Patched MD5 ($patched_md5) does not match expected MD5 ($expected_md5)"
+        if [[ $override_md5 -eq 0 ]]; then
+            rm -r $patched
+            echo "ERROR: Patched MD5 does not match and --override not specified. Generated kext, $patched, deleted!"
+            exit
+        fi
     fi
 fi
 
