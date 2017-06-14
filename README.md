@@ -63,9 +63,9 @@ Such as:
 ./patch_nvme.sh --spoof 10_12_2
 ```
 
-And the --location option can be used to specify an alternate location for the IONVMeFamily.kext.  For example, if you wanted to patch from a different version, or from an IONVMeFamily.kext that is stored somewhere else:
+And the --unpatched option can be used to specify an alternate location for the IONVMeFamily.kext.  For example, if you wanted to patch from a different version, or from an IONVMeFamily.kext that is stored somewhere else:
 ```
-./patch_nvme.sh --location /Volumes/10.11.6/System/Library/Extensions/IONVMeFamily.kext 10_11_6_sec2017-001
+./patch_nvme.sh --unpatched /Volumes/10.11.6/System/Library/Extensions/IONVMeFamily.kext 10_11_6_sec2017-001
 ```
 
 
