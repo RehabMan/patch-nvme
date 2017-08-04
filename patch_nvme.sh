@@ -19,6 +19,9 @@ while [[ $# -gt 0 ]]; do
     elif [[ "$1" == --override ]]; then
         override_md5=1
         shift
+    elif [[ "$1" == --rehabman ]]; then
+        rehabman=1
+        shift
     else
         break
     fi
@@ -80,7 +83,7 @@ if [[ $rehabman -eq 1 ]]; then
     unpatched=./unpatched/IONVMeFamily_$patch_name.kext
 fi
 
-echo "Creating patched $patched"
+echo "Creating patched $patched from $unpatched"
 
 rm -Rf $patched
 cp -RX $unpatched $patched
