@@ -1,4 +1,5 @@
 .DS_Store
 Hackr*.kext
 Hackr*.s
+!HackrNVMeFamilyInjector.kext
 Distribute/

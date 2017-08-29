@@ -69,6 +69,15 @@ And the --unpatched option can be used to specify an alternate location for the 
 ```
 
 
+### A note about dual-boot and 10.13
+
+If you're using the class-code spoof on versions prior to 10.13 (eg. 10.11 or 10.12), you will notice the spoofed class-code will prevent the IONVMeFamily.kext in 10.13 from loading.  And you will also notice there are no files in this project for patching 10.13 IONVMeFamily.kext.  That is because the 10.13 IONVMeFamily can now deal with 512 byte blocks natively, so there is no need to patch.
+
+But with the class-code spoof in place, IONVMeFamily.kext from 10.13 will not load (it is looking for NVMe standard class-code).  For the non-dual boot scenario (eg. just booting 10.13, no other macOS/OS X versions), you can simply remove the class-codes spoof (SSDT_NVMe-Pcc.aml).
+
+For the case of booting 10.11/10.12 + 10.13, install HackrNVMeFamilyInjector.kext to the system volume (10.13+ only).  It is a simple injector kext that adds the spoofed class-code to the IO catalog, causing IONVMeFamily.kext to load for the spoofed class-code.  That way HackrNVMeFamily-*.kext can be used for 10.12/10.11 and IONVMeFamily.kext (native) can be used on 10.13.
+
+
 ### Usage:
 
 Download the ZIP (and extract it) or make a clone of the git repository.
@@ -96,6 +105,7 @@ Contents:
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary
 - config_patches.plist: contains _DSM to XDSM ACPI patch
+- HackrNVMeFamilyInjector.kext: for 10.13 with class-code spoof in place.  See above "A note about dual-boot and 10.13"
 
 Usage:
 - extract patch_nvme.zip archive
