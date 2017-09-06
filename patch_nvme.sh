@@ -66,7 +66,8 @@ fi
 # pci144d,a802 = Samsung 950 Pro NVMe
 # pci144d,a804 = Samsung 960 EVO NVMe
 # pci1987,5007 = Zotac Sonix PCIe 480gb
-devids=("pci144d,a802" "pci144d,a804" "pci1987,5007")
+# pci1179,0115 = Toshiba THNSN51T02DUK NVMe PCIe 1024GB
+devids=("pci144d,a802" "pci144d,a804" "pci1987,5007" "pci1179,0115")
 # devids only used if use_class_match=0
 use_class_match=1
 
