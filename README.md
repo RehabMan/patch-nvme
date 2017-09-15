@@ -26,12 +26,20 @@ The script here implements the strategy proposed above.
 
 Read here: http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-42#entry2356251
 
+The various patch selections are in config_patches.plist
+
 
 ### Special note regarding 4k block size capable drives
 
 It may be that your drive is capable of being driven with a 4k block size instead of 512 bytes.  If the drive is in 4k mode, you may be able to use the IONVMeFamily.kext without patches.
 
 Read here: http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-50#entry2377304
+
+A partial list of drives supporting 4k native:
+- Toshiba XG3 (Controller: TC58NCP070GSB)
+- OCZ RD400 (Controller: TC58NCP070GSB)
+- Intel SSD750 (Have Performance/Speed Issues)
+- WD Black (Controller: Marvell 88SS1093)
 
 
 ### 10.12 Sierra Notes
@@ -104,7 +112,7 @@ Contents:
 - NMVe-Patches_10_12_6.plist: KextsToPatch content for 10.12.6
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary
-- config_patches.plist: contains _DSM to XDSM ACPI patch
+- config_patches.plist: contains _DSM to XDSM ACPI patch, and other special purpose (LiteOn/Plextor/Hynix) IONVMeFamily patches
 - HackrNVMeFamilyInjector.kext: for 10.13 with class-code spoof in place.  See above "A note about dual-boot and 10.13"
 
 Usage:

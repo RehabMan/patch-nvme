@@ -19,5 +19,111 @@
 			</array>
 		</dict>
 	</dict>
+	<key>KernelAndKextPatches</key>
+	<dict>
+		<key>Comment1</key>
+		<string>Change &quot;com.apple.iokit.IONVMeFamily&quot; to &quot;com.apple.hack.HackrNVMeFamily&quot; if using HackrNVMeFamily*.kext</string>
+		<key>Comment2</key>
+		<string>Use only the patch appropriate for your SSD hardware</string>
+		<key>KextsToPatch</key>
+		<array>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x01 (c) Pike R. Alpha </string>
+				<key>MatchOS</key>
+				<string>10.12.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>9sEQD4UcAQAA</data>
+				<key>Replace</key>
+				<data>9sEBD4UcAQAA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x02 (c) Pike R. Alpha </string>
+				<key>MatchOS</key>
+				<string>10.12.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>9sEQD4UcAQAA</data>
+				<key>Replace</key>
+				<data>9sECD4UcAQAA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x04 (c) Pike R. Alpha </string>
+				<key>MatchOS</key>
+				<string>10.12.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>9sEQD4UcAQAA</data>
+				<key>Replace</key>
+				<data>9sEED4UcAQAA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x08 (c) Pike R. Alpha </string>
+				<key>MatchOS</key>
+				<string>10.12.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>9sEQD4UcAQAA</data>
+				<key>Replace</key>
+				<data>9sEID4UcAQAA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x01, credit RehabMan based on 10.12 patch (c) Pike R. Alpha </string>
+				<key>MatchOS</key>
+				<string>10.13.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>9sEQD4VBAQAA</data>
+				<key>Replace</key>
+				<data>9sEBD4VBAQAA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x02, credit RehabMan based on 10.12 patch, (c) Pike R. Alpha </string>
+				<key>MatchOS</key>
+				<string>10.13.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>9sEQD4VBAQAA</data>
+				<key>Replace</key>
+				<data>9sECD4VBAQAA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x04, credit RehabMan based on 10.12 patch (c) Pike R. Alpha </string>
+				<key>MatchOS</key>
+				<string>10.13.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>9sEQD4VBAQAA</data>
+				<key>Replace</key>
+				<data>9sEED4VBAQAA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x08, credit RehabMan based on 10.12 patch (c) Pike R. Alpha </string>
+				<key>MatchOS</key>
+				<string>10.13.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>9sEQD4VBAQAA</data>
+				<key>Replace</key>
+				<data>9sEID4VBAQAA</data>
+			</dict>
+		</array>
+	</dict>
 </dict>
 </plist>
