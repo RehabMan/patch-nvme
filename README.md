@@ -117,9 +117,8 @@ Contents:
 - NVMe_patches_10_12_5.plist: KextsToPatch content for 10.12.5
 - NMVe_Patches_10_12_6.plist: KextsToPatch content for 10.12.6
 - NMVe_Patches_10_12_6_sec2017-001.plist: KextsToPatch content for 10.12.6 security update 2017-001 (16G1036)
-- NMVe_Patches_10_12_6_sec2017-002.plist: KextsToPatch content for 10.12.6 security update 2017-002
+- NMVe_Patches_10_12_6_sec2017-002.plist: KextsToPatch content for 10.12.6 security update 2017-002 (16G1114)
 - NVMe_Patches_10_12_6_sec2018-001.plist: KextsToPatch content for 10.12.6 security update 2018-001 (16G1212)
-- NVMe_patches_10_12_6_16G1114.plist: KextsToPatch content for 10.12.6 build 16G1114 (security update 2017-002?, only md5 changed)
 - binpatch: pre-built utility to patch binary files using a simple command line.
 - binpatch.c: source for binpatch binary
 - config_patches.plist: contains _DSM to XDSM ACPI patch, and other special purpose (LiteOn/Plextor/Hynix) IONVMeFamily patches
