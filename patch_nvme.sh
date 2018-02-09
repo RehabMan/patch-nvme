@@ -75,7 +75,11 @@ rename_class=1
 
 
 config=NVMe_patches_$patch_name.plist
-patched=HackrNVMeFamily-$patch_name.kext
+if [[ $spoof_class_code -eq 0 ]]; then
+    patched=HackrNVMeFamily-$patch_name.kext
+else
+    patched=HackrNVMeFamily-${patch_name}-spoof.kext
+fi
 disasm=HackrNVMeFamily-$patch_name.s
 orgdisasm=NVMeFamily-$patch_name.s
 
