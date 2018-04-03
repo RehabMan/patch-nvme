@@ -106,7 +106,8 @@ Contents:
 - NVMe_patches_10_11_6_sec2017-002: KextsToPatch content for 10.11.6 build 15G1510 (only md5 changed)
 - NVMe_patches_10_11_6_sec2017-003: KextsToPatch content for 10.11.6 build 15G1611 (only md5 changed)
 - NVMe_patches_10_11_6_sec2017-004: KextsToPatch content for 10.11.6 security update 2017-004 (only md5 changed)
-- NVMe_patches_10_11_6_sec2017-005-15G18013.plist content for 10.11.6 security update 2017-005 (15G18013) (only md5 changed)
+- NVMe_patches_10_11_6_sec2017-005-15G18013.plist: KextsToPatch content for 10.11.6 security update 2017-005 (15G18013) (only md5 changed)
+- NVMe_patches_10_11_6_sec2018-002.plist: KextsToPatch content for 10.11.6 security update 2018-002 (15G20015)
 - NVMe_patches_10_12_dp1.plist: KextsToPatch content as provided by Mork vom Ork, post #8 IM thread.
 - NVMe_patches_10_12_0.plist: KextsToPatch content for 10.12.0
 - NVMe_patches_10_12_1_16B2555.plist: KextsToPatch content for 10.12.1 build 16B2555, which was followed up very quicky with an update.  The patches are the same as NVMe_patches_10_12_1.plist, but the MD5 sums are different.
