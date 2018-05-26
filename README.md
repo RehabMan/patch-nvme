@@ -33,8 +33,7 @@ The various patch selections are in config_patches.plist
 
 It may be that your drive is capable of being driven with a 4k block size instead of 512 bytes.  If the drive is in 4k mode, you may be able to use the IONVMeFamily.kext without patches.
 
-Read here: http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-50#entry2377304
-
+Read here: https://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/?do=findComment&comment=2377304
 A partial list of drives supporting 4k native:
 - Toshiba XG3 (Controller: TC58NCP070GSB)
 - OCZ RD400 (Controller: TC58NCP070GSB)
