@@ -41,7 +41,7 @@ A partial list of drives supporting 4k native:
 - Intel SSD750 (Have Performance/Speed Issues)
 - WD Black (Controller: Marvell 88SS1093)
 
-### 10.12 High Sierra
+### 10.13 High Sierra
 
 With 10.13, Apple has fixed their IONVMeFamily.kext and now it supports 512 byte block sizes natively.  This means for many NVMe SSDs, you do not need these patches.  Still, the special patches for LiteOn/Plextor/Hynix SSDs may be necessary (see above).
 
