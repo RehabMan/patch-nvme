@@ -29,6 +29,16 @@
 		<array>
 			<dict>
 				<key>Comment</key>
+				<string>IONVMeFamily: Ignore FLBAS bit:4 being set - for Plextor/LiteOn/Hynix (credit Pene)</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>ikga9sEQ</data>
+				<key>Replace</key>
+				<data>ikga9sEA</data>
+			</dict>
+			<dict>
+				<key>Comment</key>
 				<string>IONVMeFamily Preferred Block Size 0x10 -&gt; 0x01 (c) Pike R. Alpha </string>
 				<key>MatchOS</key>
 				<string>10.12.x</string>

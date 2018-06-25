@@ -26,6 +26,8 @@ The script here implements the strategy proposed above.
 
 Read here: http://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/page-42#entry2356251
 
+Also, read here as Pene has proposed an alternate patch: https://www.insanelymac.com/forum/topic/312803-patch-for-using-nvme-under-macos-sierra-is-ready/?do=findComment&comment=2617639
+
 The various patch selections are in config_patches.plist
 
 
