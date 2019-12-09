@@ -133,6 +133,20 @@
 				<key>Replace</key>
 				<data>9sEID4VBAQAA</data>
 			</dict>
+			<dict>
+				<key>Comment</key>
+				<string>IONVMeFamily patch for SSD Liteon etc. (c)jief_machak</string>
+				<key>Disabled</key>
+				<false/>
+				<key>MatchOS</key>
+				<string>10.15.x</string>
+				<key>Name</key>
+				<string>com.apple.iokit.IONVMeFamily</string>
+				<key>Find</key>
+				<data>D4NOAQAA</data>
+				<key>Replace</key>
+				<data>kJCQkJCQ</data>
+			</dict>
 		</array>
 	</dict>
 </dict>
